@@ -1,6 +1,15 @@
 const express = require('express');
-
 const app = express();
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+// CONNECT TO DB
+mongoose.connect(
+    `${process.env.MONGO_CONNECTION_STRING}`, { useNewUrlParser: true },
+    () => {
+        console.log('connected to db');
+    }
+);
 
 // MIDDLEWARES - function that executes when routes are hit
 // app.use('/posts', () => {
@@ -8,11 +17,11 @@ const app = express();
 // });
 
 // ROUTES
-app.get('/', (req, res) => {
+app.get('/', (res) => {
     res.send('Home route');
 });
 
-app.get('/posts', (req, res) => {
+app.get('/posts', (res) => {
     res.send('Posts route');
 });
 
