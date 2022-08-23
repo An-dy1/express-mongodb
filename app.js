@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -8,6 +9,10 @@ const postsRoute = require('./routes/posts');
 
 // MIDDLEWARE
 // function that executes when routes are hit
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use('/posts', postsRoute);
 
 // CONNECT TO DB
@@ -18,7 +23,7 @@ mongoose.connect(
     }
 );
 
-// ROUTES
+// BASIC ROUTES
 app.get('/', (req, res) => {
     res.send('Home route');
 });
