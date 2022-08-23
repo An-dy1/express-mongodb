@@ -3,6 +3,13 @@ const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// IMPORT ROUTES
+const postsRoute = require('./routes/posts');
+
+// MIDDLEWARE
+// function that executes when routes are hit
+app.use('/posts', postsRoute);
+
 // CONNECT TO DB
 mongoose.connect(
     `${process.env.MONGO_CONNECTION_STRING}`, { useNewUrlParser: true },
@@ -11,18 +18,9 @@ mongoose.connect(
     }
 );
 
-// MIDDLEWARES - function that executes when routes are hit
-// app.use('/posts', () => {
-//     console.log('hit the posts route');
-// });
-
 // ROUTES
-app.get('/', (res) => {
+app.get('/', (req, res) => {
     res.send('Home route');
-});
-
-app.get('/posts', (res) => {
-    res.send('Posts route');
 });
 
 // Listen to server
