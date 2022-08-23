@@ -18,6 +18,6 @@ const PostSchema = mongoose.Schema({
         default: Date.now,
         required: true,
     },
-});
+}, { collection: 'posts' });
 
 module.exports = mongoose.model('Post', PostSchema);
